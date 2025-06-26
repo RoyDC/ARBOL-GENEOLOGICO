@@ -22,3 +22,21 @@ Persona* crearPersona(int id, string nombre, string posicion) {
     nueva->izquierda = nueva->derecha = NULL; // Ambos hijos se inicializan como vacios
     return nueva; // Se devuelve el puntero al nuevo nodo creado
 }
+// Funcion para insertar una persona en el arbol binario de busqueda (ABB)
+Persona* insertar(Persona* raiz, int id, string nombre, string posicion) {
+    if (raiz == NULL) {
+        // Si el arbol esta vacio o se llego a una hoja, se inserta una nueva persona
+        return crearPersona(id, nombre, posicion);
+    }
+    if (id < raiz->id) {
+        // Si el ID es menor, se inserta en el subarbol izquierdo
+        raiz->izquierda = insertar(raiz->izquierda, id, nombre, posicion);
+    } else if (id > raiz->id) {
+        // Si el ID es mayor, se inserta en el subarbol derecho
+        raiz->derecha = insertar(raiz->derecha, id, nombre, posicion);
+    } else {
+        // Si el ID ya existe, se evita insertar duplicados
+        cout << "ID duplicado. No se inserto.\n";
+    }
+    return raiz; // Se retorna la raiz actualizada
+}
